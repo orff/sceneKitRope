@@ -53,7 +53,8 @@
     //add background?
     SCNNode *bgBox = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:10 height:10 length:2 chamferRadius:0]];
     bgBox.name = @"bgBox";
-    bgBox.position = SCNVector3Make(0, 0, -2.0);
+    bgBox.position = SCNVector3Make(0, 0, -4.0);
+    bgBox.physicsBody = [SCNPhysicsBody kinematicBody];
     [[scene rootNode] addChildNode:bgBox];
     
     // add the branch at the top
@@ -78,8 +79,10 @@
 //    [scene.physicsWorld addBehavior:joint];
     
     //create the rope
-        SCNMaterial *ropeMaterial = [SCNMaterial material];
-        _rope = [[ALRope alloc] initWithMaterial:ropeMaterial];
+    SCNMaterial *ropeMaterial = [SCNMaterial material];
+    ropeMaterial.diffuse.contents = [SKColor lightGrayColor];
+    _rope = [[ALRope alloc] initWithMaterial:ropeMaterial];
+    
     //
     //
     //    //configure rope params if needed
@@ -101,7 +104,7 @@
     //attach rope to branch
     SCNNode *startRing = [_rope startRing];
     
-    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -1.1, 0) bodyB:startRing.physicsBody anchorB:SCNVector3Make(0, 1.1, 0)];
+    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -1.1, 0) bodyB:startRing.physicsBody anchorB:SCNVector3Make(0, 0.5, 0)];
     [scene.physicsWorld addBehavior:joint];
     
 //    SCNVector3 jointAnchor = SCNVector3Make(startRing.position.x, startRing.position.y + 1.0 / 2, 0);
@@ -117,6 +120,8 @@
     
     // set the scene to the view
     scnView.scene = scene;
+    
+    scnView.scene.physicsWorld.speed = 2.5;
     
     // allows the user to manipulate the camera
     //scnView.allowsCameraControl = YES;

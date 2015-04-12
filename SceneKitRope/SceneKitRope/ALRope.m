@@ -21,7 +21,7 @@ static CGFloat const JOINTS_FRICTION_TORQUE_DEFAULT = 0;
 
 static CGFloat const RING_SCALE_DEFAULT = 1;
 
-static int const RING_COUNT_DEFAULT = 30;
+static int const RING_COUNT_DEFAULT = 10;
 
 static CGFloat const RINGS_Z_POSITION_DEFAULT = 1;
 
@@ -105,7 +105,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
         SCNNode *nodeA = [_ropeRings objectAtIndex:i-1];
         SCNNode *nodeB = [_ropeRings objectAtIndex:i];
         
-        SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:nodeA.physicsBody anchorA:SCNVector3Make(0.0, -1.1, 0) bodyB:nodeB.physicsBody anchorB:SCNVector3Make(0, 1.1, 0)];
+        SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:nodeA.physicsBody anchorA:SCNVector3Make(0.0, -0.51, 0) bodyB:nodeB.physicsBody anchorB:SCNVector3Make(0, 0.51, 0)];
         [scene.physicsWorld addBehavior:joint];
         
 //        SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:nodeA.physicsBody
