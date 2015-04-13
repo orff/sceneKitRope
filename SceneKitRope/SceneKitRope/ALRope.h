@@ -1,10 +1,9 @@
 //
-//  ALRope.h
-//  RopeDemo
+//  MHRope.h
+//  SceneKitRope
 //
-//  Created by alayouni on 1/18/15.
-//  Copyright (c) 2015 com.alayouni. All rights reserved.
-//
+//  Created by Michael Hill on 4/12/15.
+//  Copyright (c) 2015 Michael Hill. All rights reserved.
 
 //#import <SpriteKit/SpriteKit.h>
 #import <SceneKit/SceneKit.h>
@@ -12,6 +11,7 @@
 @interface ALRope : NSObject
 
 @property(nonatomic, readonly) NSArray *ropeRings;
+@property(nonatomic) SCNVector3 ringSegmentSize;
 
 @property(nonatomic) int ringCount;
 
@@ -40,11 +40,9 @@
 
 
 
--(instancetype)initWithMaterial:(SCNMaterial *)ringTexture;
+-(instancetype)initWithMaterial:(SCNMaterial *)ringTexture andRingSegmentSize:(SCNVector3)ringSegmentSize;
 
 -(void)buildRopeWithScene:(SCNScene *)scene;
-
--(void)adjustRingPositions;
 
 -(SCNNode *)startRing;
 

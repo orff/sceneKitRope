@@ -1,9 +1,9 @@
 //
-//  ALRope.m
-//  RopeDemo
+//  MHRope.m
+//  SceneKitRope
 //
-//  Created by alayouni on 1/18/15.
-//  Copyright (c) 2015 com.alayouni. All rights reserved.
+//  Created by Michael Hill on 4/12/15.
+//  Copyright (c) 2015 Michael Hill. All rights reserved.
 //
 
 #import "ALRope.h"
@@ -38,13 +38,14 @@ static CGFloat const RING_RESTITUTION_DEFAULT = 0;
 static CGFloat const RING_MASS_DEFAULT = -1;
 
 
--(instancetype)initWithMaterial:(SCNMaterial *)ringTexture
+-(instancetype)initWithMaterial:(SCNMaterial *)ringTexture andRingSegmentSize:(SCNVector3)ringSegmentSize
 {
     if(self = [super init]) {
         _ringTexture = ringTexture;
         
         //apply defaults
         _startRingPosition = SCNVector3Zero;
+        _ringSegmentSize = ringSegmentSize;
         _ringsDistance = RINGS_DISTANCE_DEFAULT;
         _jointsFrictionTorque = JOINTS_FRICTION_TORQUE_DEFAULT;
         _ringScale = RING_SCALE_DEFAULT;
@@ -79,7 +80,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
 
 -(SCNNode *)addRopeRingWithPosition:(SCNVector3)position underScene:(SCNScene *)scene
 {
-    SCNBox *box = [SCNBox boxWithWidth:1.0 height:1.0 length:1.0 chamferRadius:0.1];
+    SCNBox *box = [SCNBox boxWithWidth:_ringSegmentSize.x height:_ringSegmentSize.y length:_ringSegmentSize.z chamferRadius:0.1];
     SCNNode *ring = [SCNNode nodeWithGeometry:box];
     ring.geometry.firstMaterial = _ringTexture;
     
@@ -105,7 +106,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
         SCNNode *nodeA = [_ropeRings objectAtIndex:i-1];
         SCNNode *nodeB = [_ropeRings objectAtIndex:i];
         
-        SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:nodeA.physicsBody anchorA:SCNVector3Make(0.0, -0.51, 0) bodyB:nodeB.physicsBody anchorB:SCNVector3Make(0, 0.51, 0)];
+        SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:nodeA.physicsBody anchorA:SCNVector3Make(0.0, -_ringSegmentSize.y/2, 0) bodyB:nodeB.physicsBody anchorB:SCNVector3Make(0, _ringSegmentSize.y/2, 0)];
         [scene.physicsWorld addBehavior:joint];
         
 //        SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:nodeA.physicsBody
@@ -121,27 +122,6 @@ static CGFloat const RING_MASS_DEFAULT = -1;
 //        [scene.physicsWorld addJoint:joint];
         
         [scene.physicsWorld addBehavior:joint];
-    }
-}
-
-//workaround for elastic effect should be called from didSimulatePhysics
--(void)adjustRingPositions
-{
-    //based on zRotations of all rings and the position of start ring adjust the rest of the rings positions starting from top to bottom
-    for (int i = 1; i < _ropeRings.count; i++) {
-        SCNNode *nodeA = [_ropeRings objectAtIndex:i-1];
-        SCNNode *nodeB = [_ropeRings objectAtIndex:i];
-        CGFloat thetaA = nodeA.rotation.y - M_PI / 2, // Y, NOT Z ?
-        thetaB = nodeB.rotation.y + M_PI / 2,
-        ringHeight = 1.0,
-        jointRadius = (_ringsDistance + ringHeight) / 2,
-        xJoint = jointRadius * cosf(thetaA) + nodeA.position.x,
-        yJoint = jointRadius * sinf(thetaA) + nodeA.position.y,
-        theta = thetaB - M_PI,
-        xB = jointRadius * cosf(theta) + xJoint,
-        yB = jointRadius * sinf(theta) + yJoint;
-        
-        nodeB.position = SCNVector3Make(xB, yB,0);
     }
 }
 

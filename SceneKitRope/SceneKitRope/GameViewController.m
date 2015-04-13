@@ -57,8 +57,10 @@
     bgBox.physicsBody = [SCNPhysicsBody kinematicBody];
     [[scene rootNode] addChildNode:bgBox];
     
+    float handleHeight = 2.0;
+    
     // add the branch at the top
-    SCNNode *branch = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.2 height:2.0]];
+    SCNNode *branch = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.2 height:handleHeight]];
     branch.name = @"branch";
     branch.geometry.firstMaterial.diffuse.contents = [SKColor redColor];
     branch.physicsBody = [SCNPhysicsBody kinematicBody];
@@ -67,21 +69,12 @@
     branch.position = SCNVector3Make(0, 4.0, 0);
     [[scene rootNode] addChildNode:branch];
     
-//    SCNNode *branch2 = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.2 height:2.0]];
-//    branch2.geometry.firstMaterial.diffuse.contents = [SKColor blueColor];
-//    branch2.physicsBody = [SCNPhysicsBody dynamicBody];
-//    //branch2.eulerAngles = SCNVector3Make(0, 0, M_PI_2);
-//    
-//    branch2.position = SCNVector3Make(0, 2.0, 0);
-//    [[scene rootNode] addChildNode:branch2];
-//    
-//    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -1.1, 0) bodyB:branch2.physicsBody anchorB:SCNVector3Make(0, 1.1, 0)];
-//    [scene.physicsWorld addBehavior:joint];
+    SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 1.0, 0.2);
     
     //create the rope
     SCNMaterial *ropeMaterial = [SCNMaterial material];
     ropeMaterial.diffuse.contents = [SKColor lightGrayColor];
-    _rope = [[ALRope alloc] initWithMaterial:ropeMaterial];
+    _rope = [[ALRope alloc] initWithMaterial:ropeMaterial andRingSegmentSize:ringSegmentSize];
     
     //
     //
@@ -98,20 +91,15 @@
     //    //    _rope.jointsLowerAngleLimit = ...;//default is -M_PI/3
     //    //    _rope.jointsUpperAngleLimit = ...;//default is M_PI/3
     //
-        _rope.startRingPosition = SCNVector3Make(branch.position.x, branch.position.y - 2.0, branch.position.z);
-        [_rope buildRopeWithScene:scene];
+    
+    _rope.startRingPosition = SCNVector3Make(branch.position.x, branch.position.y - handleHeight/2 - ringSegmentSize.y/2, branch.position.z);
+    [_rope buildRopeWithScene:scene];
     
     //attach rope to branch
     SCNNode *startRing = [_rope startRing];
     
-    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -1.1, 0) bodyB:startRing.physicsBody anchorB:SCNVector3Make(0, 0.5, 0)];
+    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -handleHeight/2, 0) bodyB:startRing.physicsBody anchorB:SCNVector3Make(0, ringSegmentSize.y/2, 0)];
     [scene.physicsWorld addBehavior:joint];
-    
-//    SCNVector3 jointAnchor = SCNVector3Make(startRing.position.x, startRing.position.y + 1.0 / 2, 0);
-//    
-//    SCNPhysicsHingeJoint *joint = [SCNPhysicsHingeJoint jointWithBodyA:branch.physicsBody axisA:SCNVector3Make(0, 1.0, 0) anchorA:jointAnchor bodyB:startRing.physicsBody axisB:SCNVector3Make(0, 0, 0) anchorB:SCNVector3Make(0, 0, 0)];
-//    
-//    [scene.physicsWorld addBehavior:joint];
     
     ///////////
     
@@ -121,7 +109,7 @@
     // set the scene to the view
     scnView.scene = scene;
     
-    scnView.scene.physicsWorld.speed = 2.5;
+    scnView.scene.physicsWorld.speed = 2.0;
     
     // allows the user to manipulate the camera
     //scnView.allowsCameraControl = YES;
