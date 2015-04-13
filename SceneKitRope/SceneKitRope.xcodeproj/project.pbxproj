@@ -16,6 +16,7 @@
 		BADB40FF1ADB133A00B6748A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB40FD1ADB133A00B6748A /* LaunchScreen.xib */; };
 		BADB410B1ADB133B00B6748A /* SceneKitRopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BADB410A1ADB133B00B6748A /* SceneKitRopeTests.m */; };
 		BADB41161ADB135600B6748A /* ALRope.m in Sources */ = {isa = PBXBuildFile; fileRef = BADB41151ADB135600B6748A /* ALRope.m */; };
+		BADB411C1ADB5F8C00B6748A /* chrome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BADB411B1ADB5F8C00B6748A /* chrome.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		BADB410A1ADB133B00B6748A /* SceneKitRopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneKitRopeTests.m; sourceTree = "<group>"; };
 		BADB41141ADB135600B6748A /* ALRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALRope.h; sourceTree = "<group>"; };
 		BADB41151ADB135600B6748A /* ALRope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALRope.m; sourceTree = "<group>"; };
+		BADB411B1ADB5F8C00B6748A /* chrome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chrome.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		BADB40EB1ADB133A00B6748A /* SceneKitRope */ = {
 			isa = PBXGroup;
 			children = (
+				BADB411B1ADB5F8C00B6748A /* chrome.jpg */,
 				BADB41141ADB135600B6748A /* ALRope.h */,
 				BADB41151ADB135600B6748A /* ALRope.m */,
 				BADB40F01ADB133A00B6748A /* AppDelegate.h */,
@@ -211,6 +214,7 @@
 				BADB40FC1ADB133A00B6748A /* Images.xcassets in Resources */,
 				BADB40F41ADB133A00B6748A /* art.scnassets in Resources */,
 				BADB40FA1ADB133A00B6748A /* Main.storyboard in Resources */,
+				BADB411C1ADB5F8C00B6748A /* chrome.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

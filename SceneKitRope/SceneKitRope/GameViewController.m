@@ -22,9 +22,12 @@
     [super viewDidLoad];
     
     // SETTINGS
-    SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 0.9, 0.2);
+    SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 0.4, 0.2);
     SCNVector3 backgroundSize = SCNVector3Make(10.0, 10.0, 2.0);
-    bool useSpotlight = NO;
+    bool useSpotlight = YES;
+#if (TARGET_IPHONE_SIMULATOR)
+    useSpotlight = NO;
+#endif
     
     // create a new scene
     SCNScene *scene = [SCNScene scene];
@@ -86,9 +89,7 @@
     bgBox.name = @"bgBox";
     bgBox.physicsBody = [SCNPhysicsBody kinematicBody];
     
-    bgBox.geometry.firstMaterial.diffuse.contents = @"texture.png";
-    
-    bgBox.position = SCNVector3Make(0, 2.0, -2.0);
+    bgBox.position = SCNVector3Make(0, 2.0, -3.0);
     [[scene rootNode] addChildNode:bgBox];
     
     float handleHeight = 1.5;
@@ -105,7 +106,9 @@
     
     //create the rope
     SCNMaterial *ropeMaterial = [SCNMaterial material];
-    ropeMaterial.diffuse.contents = [SKColor lightGrayColor];
+    ropeMaterial.diffuse.contents = [SKColor darkGrayColor];
+    ropeMaterial.reflective.contents = @"chrome.jpg";
+    ropeMaterial.reflective.intensity = 0.65;
     _rope = [[ALRope alloc] initWithMaterial:ropeMaterial andRingSegmentSize:ringSegmentSize];
     
     //
@@ -125,8 +128,8 @@
     //
     
     //params used
-    _rope.ringsDistance = 0.1;
-    _rope.ringFriction = 1.0;
+    _rope.ringsDistance = 0.025;
+    _rope.ringFriction = 0.5;
     
     _rope.startRingPosition = SCNVector3Make(branch.position.x, branch.position.y - handleHeight/2 - ringSegmentSize.y/2, branch.position.z);
     [_rope buildRopeWithScene:scene];
@@ -145,13 +148,13 @@
     // set the scene to the view
     scnView.scene = scene;
     
-    scnView.scene.physicsWorld.speed = 2.0;
+    scnView.scene.physicsWorld.speed = 2.5;
     
     // allows the user to manipulate the camera
     //scnView.allowsCameraControl = YES;
     
     // show statistics such as fps and timing information
-    scnView.showsStatistics = YES;
+    //scnView.showsStatistics = YES;
     
     // configure the view
     scnView.backgroundColor = [UIColor blackColor];
@@ -217,26 +220,28 @@
         // retrieved the first clicked object
         SCNHitTestResult *result = [hitResults objectAtIndex:0];
         
-        // get its material
-        SCNMaterial *material = result.node.geometry.firstMaterial;
-        
-        // highlight it
-        [SCNTransaction begin];
-        [SCNTransaction setAnimationDuration:0.5];
-        
-        // on completion - unhighlight
-        [SCNTransaction setCompletionBlock:^{
+        if (![result.node.name isEqualToString:@"floor"]) {
+            // get its material
+            SCNMaterial *material = result.node.geometry.firstMaterial;
+            
+            // highlight it
             [SCNTransaction begin];
             [SCNTransaction setAnimationDuration:0.5];
             
-            material.emission.contents = [UIColor blackColor];
+            // on completion - unhighlight
+            [SCNTransaction setCompletionBlock:^{
+                [SCNTransaction begin];
+                [SCNTransaction setAnimationDuration:0.5];
+                
+                material.emission.contents = [UIColor blackColor];
+                
+                [SCNTransaction commit];
+            }];
+            
+            material.emission.contents = [UIColor redColor];
             
             [SCNTransaction commit];
-        }];
-        
-        material.emission.contents = [UIColor redColor];
-        
-        [SCNTransaction commit];
+        }
     }
 }
 
