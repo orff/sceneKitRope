@@ -19,10 +19,6 @@
 
 @property(nonatomic) CGFloat ringsDistance;
 
-@property(nonatomic) CGFloat jointsFrictionTorque;
-
-@property(nonatomic) CGFloat ringsZPosition;
-
 @property(nonatomic) SCNVector3 startRingPosition;
 
 @property(nonatomic) CGFloat ringFriction;
@@ -30,14 +26,6 @@
 @property(nonatomic) CGFloat ringRestitution;
 
 @property(nonatomic) CGFloat ringMass;
-
-
-@property(nonatomic) BOOL shouldEnableJointsAngleLimits;
-
-@property(nonatomic) CGFloat jointsLowerAngleLimit;
-
-@property(nonatomic) CGFloat jointsUpperAngleLimit;
-
 
 
 -(instancetype)initWithMaterial:(SCNMaterial *)ringTexture andRingSegmentSize:(SCNVector3)ringSegmentSize;
