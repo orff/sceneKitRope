@@ -21,6 +21,11 @@
 {
     [super viewDidLoad];
     
+    // SETTINGS
+    SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 0.9, 0.2);
+    SCNVector3 backgroundSize = SCNVector3Make(10.0, 10.0, 2.0);
+    bool useSpotlight = NO;
+    
     // create a new scene
     SCNScene *scene = [SCNScene scene];
     
@@ -38,6 +43,7 @@
     SCNNode *lightNode = [SCNNode node];
     lightNode.light = [SCNLight light];
     lightNode.light.type = SCNLightTypeOmni;
+    if (useSpotlight) lightNode.light.color = [SKColor colorWithWhite:0.2 alpha:1.0];
     lightNode.position = SCNVector3Make(0, 10, 10);
     [scene.rootNode addChildNode:lightNode];
     
@@ -48,16 +54,44 @@
     ambientLightNode.light.color = [UIColor grayColor];
     [scene.rootNode addChildNode:ambientLightNode];
     
+    if (useSpotlight) {
+        SCNNode *spotLightNode = [SCNNode node];
+        spotLightNode.light = [SCNLight light];
+        spotLightNode.light.type = SCNLightTypeSpot;
+        spotLightNode.light.castsShadow = YES;
+        spotLightNode.light.color = [UIColor colorWithWhite:0.5 alpha:1.0];
+        spotLightNode.position = SCNVector3Make(0, 10, 15);
+        spotLightNode.eulerAngles = SCNVector3Make(0,0 ,  M_2_PI/2);
+        spotLightNode.light.spotInnerAngle = 0;
+        spotLightNode.light.spotOuterAngle = 75;
+        spotLightNode.light.shadowColor = [SKColor blackColor];
+        
+        [scene.rootNode addChildNode:spotLightNode];
+    }
+    
+    //add floor
+    SCNNode *floorNode = [SCNNode node];
+    floorNode.position = SCNVector3Make(0, -backgroundSize.y/2, 0);
+    floorNode.name = @"floor";
+    
+    SCNFloor *floor = [SCNFloor floor];
+    floorNode.geometry = floor;
+    floorNode.physicsBody = [SCNPhysicsBody kinematicBody];
+    [scene.rootNode addChildNode:floorNode];
+    
     /////////
     
     //add background?
-    SCNNode *bgBox = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:10 height:10 length:2 chamferRadius:0]];
+    SCNNode *bgBox = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:backgroundSize.x height:backgroundSize.y length:backgroundSize.z chamferRadius:0]];
     bgBox.name = @"bgBox";
-    bgBox.position = SCNVector3Make(0, 0, -4.0);
     bgBox.physicsBody = [SCNPhysicsBody kinematicBody];
+    
+    bgBox.geometry.firstMaterial.diffuse.contents = @"texture.png";
+    
+    bgBox.position = SCNVector3Make(0, 2.0, -2.0);
     [[scene rootNode] addChildNode:bgBox];
     
-    float handleHeight = 2.0;
+    float handleHeight = 1.5;
     
     // add the branch at the top
     SCNNode *branch = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.2 height:handleHeight]];
@@ -68,8 +102,6 @@
     
     branch.position = SCNVector3Make(0, 4.0, 0);
     [[scene rootNode] addChildNode:branch];
-    
-    SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 1.0, 0.2);
     
     //create the rope
     SCNMaterial *ropeMaterial = [SCNMaterial material];
@@ -92,13 +124,17 @@
     //    //    _rope.jointsUpperAngleLimit = ...;//default is M_PI/3
     //
     
+    //params used
+    _rope.ringsDistance = 0.1;
+    _rope.ringFriction = 1.0;
+    
     _rope.startRingPosition = SCNVector3Make(branch.position.x, branch.position.y - handleHeight/2 - ringSegmentSize.y/2, branch.position.z);
     [_rope buildRopeWithScene:scene];
     
     //attach rope to branch
     SCNNode *startRing = [_rope startRing];
     
-    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -handleHeight/2, 0) bodyB:startRing.physicsBody anchorB:SCNVector3Make(0, ringSegmentSize.y/2, 0)];
+    SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:branch.physicsBody anchorA:SCNVector3Make(0.0, -handleHeight/2, 0) bodyB:startRing.physicsBody anchorB:SCNVector3Make(0, ringSegmentSize.y/2 +  _rope.ringsDistance, 0)];
     [scene.physicsWorld addBehavior:joint];
     
     ///////////
@@ -118,7 +154,7 @@
     scnView.showsStatistics = YES;
     
     // configure the view
-    scnView.backgroundColor = [UIColor grayColor];
+    scnView.backgroundColor = [UIColor blackColor];
     
     NSMutableArray *gestureRecognizers = [NSMutableArray array];
     
@@ -134,6 +170,20 @@
     
 }
 
+-(SCNHitTestResult *)dragPlaneResult:(NSArray *)hitResults {
+    //finds the first backWall node inside of hitTest results
+    
+    for (SCNHitTestResult *result in hitResults) {
+        if ([result.node.name isEqualToString:@"bgBox"]) {
+            return result;
+            break;
+        }
+        //NSLog(@"hitName: %@", result.node.name);
+    }
+    
+    return nil;
+}
+
 - (void) handlePan:(UIGestureRecognizer*)gestureRecognize {
     // retrieve the SCNView
     SCNView *scnView = (SCNView *)self.view;
@@ -142,20 +192,15 @@
     CGPoint p = [gestureRecognize locationInView:scnView];
     NSArray *hitResults = [scnView hitTest:p options:nil];
     
-    //if (gestureRecognize.state == UIGestureRecognizerStateChanged) {
-        // check that we clicked on at least one object
-        if([hitResults count] > 0){
-            SCNHitTestResult *result = [hitResults objectAtIndex:0];
-            
-            //only allow dragging around on background box
-            if ([result.node.name isEqualToString:@"bgBox"]) {
-                SCNNode *branch = [[[(SCNView *)self.view scene] rootNode] childNodeWithName:@"branch" recursively:NO];
-                if (branch) {
-                    branch.position = SCNVector3Make(result.worldCoordinates.x, result.worldCoordinates.y, 0);
-                }
-            }
+    SCNHitTestResult *dragPlaneResult = [self dragPlaneResult:hitResults];
+    
+    //only allow dragging around on background box
+    if(dragPlaneResult){
+        SCNNode *branch = [[[(SCNView *)self.view scene] rootNode] childNodeWithName:@"branch" recursively:NO];
+        if (branch) {
+            branch.position = SCNVector3Make(dragPlaneResult.worldCoordinates.x, dragPlaneResult.worldCoordinates.y, 0);
         }
-    //}
+    }
 }
 
 - (void) handleTap:(UIGestureRecognizer*)gestureRecognize

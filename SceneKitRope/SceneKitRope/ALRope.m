@@ -15,7 +15,8 @@
     NSMutableArray *_ropeRings;
 }
 
-static CGFloat const RINGS_DISTANCE_DEFAULT = 0;
+//distance besteen each ring
+static CGFloat const RINGS_DISTANCE_DEFAULT = 0.0;
 
 static CGFloat const JOINTS_FRICTION_TORQUE_DEFAULT = 0;
 
@@ -70,8 +71,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
     SCNNode *lastRing = firstRing;
     SCNVector3 position;
     for (int i = 1; i < _ringCount; i++) {
-        float ringHeight = 1.0;
-        position = SCNVector3Make(lastRing.position.x, lastRing.position.y - ringHeight - _ringsDistance, 0);
+        position = SCNVector3Make(lastRing.position.x, lastRing.position.y - _ringSegmentSize.y - _ringsDistance, 0);
         lastRing = [self addRopeRingWithPosition:position underScene:scene];
     }
     
@@ -82,13 +82,12 @@ static CGFloat const RING_MASS_DEFAULT = -1;
 {
     SCNBox *box = [SCNBox boxWithWidth:_ringSegmentSize.x height:_ringSegmentSize.y length:_ringSegmentSize.z chamferRadius:0.1];
     SCNNode *ring = [SCNNode nodeWithGeometry:box];
+    ring.castsShadow = YES;
     ring.geometry.firstMaterial = _ringTexture;
     
     //ring.xScale = ring.yScale = _ringScale;
     ring.position = position;
     ring.physicsBody = [SCNPhysicsBody dynamicBody];
-//    ring.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ring.size.height / 2];
-//    ring.physicsBody.allowsRotation = YES;
     ring.physicsBody.friction = _ringFriction;
     ring.physicsBody.restitution = _ringRestitution;
     if(_ringMass > 0) {
@@ -106,7 +105,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
         SCNNode *nodeA = [_ropeRings objectAtIndex:i-1];
         SCNNode *nodeB = [_ropeRings objectAtIndex:i];
         
-        SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:nodeA.physicsBody anchorA:SCNVector3Make(0.0, -_ringSegmentSize.y/2, 0) bodyB:nodeB.physicsBody anchorB:SCNVector3Make(0, _ringSegmentSize.y/2, 0)];
+        SCNPhysicsBallSocketJoint *joint = [SCNPhysicsBallSocketJoint jointWithBodyA:nodeA.physicsBody anchorA:SCNVector3Make(0.0, -_ringSegmentSize.y/2 - _ringsDistance, 0) bodyB:nodeB.physicsBody anchorB:SCNVector3Make(0, _ringSegmentSize.y/2, 0)];
         [scene.physicsWorld addBehavior:joint];
         
 //        SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:nodeA.physicsBody
