@@ -88,7 +88,6 @@
 		BADB40EB1ADB133A00B6748A /* SceneKitRope */ = {
 			isa = PBXGroup;
 			children = (
-				BADB411B1ADB5F8C00B6748A /* chrome.jpg */,
 				BADB41141ADB135600B6748A /* MHRope.h */,
 				BADB41151ADB135600B6748A /* MHRope.m */,
 				BADB40F01ADB133A00B6748A /* AppDelegate.h */,
@@ -96,6 +95,7 @@
 				BADB40F31ADB133A00B6748A /* art.scnassets */,
 				BADB40F51ADB133A00B6748A /* GameViewController.h */,
 				BADB40F61ADB133A00B6748A /* GameViewController.m */,
+				BADB411B1ADB5F8C00B6748A /* chrome.jpg */,
 				BADB40F81ADB133A00B6748A /* Main.storyboard */,
 				BADB40FB1ADB133A00B6748A /* Images.xcassets */,
 				BADB40FD1ADB133A00B6748A /* LaunchScreen.xib */,
