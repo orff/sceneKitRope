@@ -22,6 +22,8 @@
     [super viewDidLoad];
     
     // SETTINGS
+    float handleHeight = 1.5;
+    
     SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 0.4, 0.2);
     SCNVector3 backgroundSize = SCNVector3Make(10.0, 10.0, 2.0);
     bool useSpotlight = NO;
@@ -35,8 +37,6 @@
     // create and add a camera to the scene
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = [SCNCamera camera];
-    cameraNode.camera.zNear = 1.0;
-    cameraNode.camera.zFar = 400.0;
     [scene.rootNode addChildNode:cameraNode];
     
     // place the camera
@@ -46,7 +46,11 @@
     SCNNode *lightNode = [SCNNode node];
     lightNode.light = [SCNLight light];
     lightNode.light.type = SCNLightTypeOmni;
-    if (useSpotlight) lightNode.light.color = [SKColor colorWithWhite:0.2 alpha:1.0];
+    if (useSpotlight) {
+        lightNode.light.color = [SKColor colorWithWhite:0.2 alpha:1.0];
+    } else {
+        lightNode.light.color = [SKColor colorWithWhite:0.6 alpha:1.0];
+    }
     lightNode.position = SCNVector3Make(0, 10, 10);
     [scene.rootNode addChildNode:lightNode];
     
@@ -92,10 +96,8 @@
     bgBox.position = SCNVector3Make(0, 2.0, -3.0);
     [[scene rootNode] addChildNode:bgBox];
     
-    float handleHeight = 1.5;
-    
     // add the branch at the top
-    SCNNode *branch = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.2 height:handleHeight]];
+    SCNNode *branch = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.3 height:handleHeight]];
     branch.name = @"branch";
     branch.geometry.firstMaterial.diffuse.contents = [SKColor redColor];
     branch.physicsBody = [SCNPhysicsBody kinematicBody];
@@ -112,19 +114,12 @@
     _rope = [[MHRope alloc] initWithMaterial:ropeMaterial andRingSegmentSize:ringSegmentSize];
     
     //
-    //
     //    //configure rope params if needed
     //    //    _rope.ringCount = ...;//default is 30
     //    //    _rope.ringScale = ...;//default is 1
     //    //    _rope.ringsDistance = ...;//default is 0
-    //    //    _rope.jointsFrictionTorque = ...;//default is 0
-    //    //    _rope.ringsZPosition = ...;//default is 1
-    //    //    _rope.ringFriction = ...;//default is 0
     //    //    _rope.ringRestitution = ...;//default is 0
     //    //    _rope.ringMass = ...;//ignored unless mass > 0; default -1
-    //    //    _rope.shouldEnableJointsAngleLimits = ...;//default is NO
-    //    //    _rope.jointsLowerAngleLimit = ...;//default is -M_PI/3
-    //    //    _rope.jointsUpperAngleLimit = ...;//default is M_PI/3
     //
     
     //params used
