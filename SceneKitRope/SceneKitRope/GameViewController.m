@@ -7,14 +7,14 @@
 //
 
 #import "GameViewController.h"
-#import "ALRope.h"
+#import "MHRope.h"
 
 @implementation GameViewController {
     __weak SCNNode *_branch;
     
     BOOL _branchIsMoving;
     
-    ALRope *_rope;
+    MHRope *_rope;
 }
 
 - (void)viewDidLoad
@@ -24,7 +24,7 @@
     // SETTINGS
     SCNVector3 ringSegmentSize = SCNVector3Make(0.2, 0.4, 0.2);
     SCNVector3 backgroundSize = SCNVector3Make(10.0, 10.0, 2.0);
-    bool useSpotlight = YES;
+    bool useSpotlight = NO;
 #if (TARGET_IPHONE_SIMULATOR)
     useSpotlight = NO;
 #endif
@@ -109,7 +109,7 @@
     ropeMaterial.diffuse.contents = [SKColor darkGrayColor];
     ropeMaterial.reflective.contents = @"chrome.jpg";
     ropeMaterial.reflective.intensity = 0.65;
-    _rope = [[ALRope alloc] initWithMaterial:ropeMaterial andRingSegmentSize:ringSegmentSize];
+    _rope = [[MHRope alloc] initWithMaterial:ropeMaterial andRingSegmentSize:ringSegmentSize];
     
     //
     //

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Michael Hill. All rights reserved.
 //
 
-#import "ALRope.h"
+#import "MHRope.h"
 
-@implementation ALRope
+@implementation MHRope
 
 {
     SCNMaterial *_ringTexture;

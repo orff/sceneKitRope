@@ -15,7 +15,7 @@
 		BADB40FC1ADB133A00B6748A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BADB40FB1ADB133A00B6748A /* Images.xcassets */; };
 		BADB40FF1ADB133A00B6748A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB40FD1ADB133A00B6748A /* LaunchScreen.xib */; };
 		BADB410B1ADB133B00B6748A /* SceneKitRopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BADB410A1ADB133B00B6748A /* SceneKitRopeTests.m */; };
-		BADB41161ADB135600B6748A /* ALRope.m in Sources */ = {isa = PBXBuildFile; fileRef = BADB41151ADB135600B6748A /* ALRope.m */; };
+		BADB41161ADB135600B6748A /* MHRope.m in Sources */ = {isa = PBXBuildFile; fileRef = BADB41151ADB135600B6748A /* MHRope.m */; };
 		BADB411C1ADB5F8C00B6748A /* chrome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BADB411B1ADB5F8C00B6748A /* chrome.jpg */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +44,8 @@
 		BADB41041ADB133B00B6748A /* SceneKitRopeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitRopeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BADB41091ADB133B00B6748A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BADB410A1ADB133B00B6748A /* SceneKitRopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneKitRopeTests.m; sourceTree = "<group>"; };
-		BADB41141ADB135600B6748A /* ALRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALRope.h; sourceTree = "<group>"; };
-		BADB41151ADB135600B6748A /* ALRope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALRope.m; sourceTree = "<group>"; };
+		BADB41141ADB135600B6748A /* MHRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHRope.h; sourceTree = "<group>"; };
+		BADB41151ADB135600B6748A /* MHRope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHRope.m; sourceTree = "<group>"; };
 		BADB411B1ADB5F8C00B6748A /* chrome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chrome.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,8 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				BADB411B1ADB5F8C00B6748A /* chrome.jpg */,
-				BADB41141ADB135600B6748A /* ALRope.h */,
-				BADB41151ADB135600B6748A /* ALRope.m */,
+				BADB41141ADB135600B6748A /* MHRope.h */,
+				BADB41151ADB135600B6748A /* MHRope.m */,
 				BADB40F01ADB133A00B6748A /* AppDelegate.h */,
 				BADB40F11ADB133A00B6748A /* AppDelegate.m */,
 				BADB40F31ADB133A00B6748A /* art.scnassets */,
@@ -234,7 +234,7 @@
 			files = (
 				BADB40F21ADB133A00B6748A /* AppDelegate.m in Sources */,
 				BADB40F71ADB133A00B6748A /* GameViewController.m in Sources */,
-				BADB41161ADB135600B6748A /* ALRope.m in Sources */,
+				BADB41161ADB135600B6748A /* MHRope.m in Sources */,
 				BADB40EF1ADB133A00B6748A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +364,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SceneKitRope/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -374,6 +375,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SceneKitRope/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

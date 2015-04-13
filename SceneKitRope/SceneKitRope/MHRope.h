@@ -8,7 +8,7 @@
 //#import <SpriteKit/SpriteKit.h>
 #import <SceneKit/SceneKit.h>
 
-@interface ALRope : NSObject
+@interface MHRope : NSObject
 
 @property(nonatomic, readonly) NSArray *ropeRings;
 @property(nonatomic) SCNVector3 ringSegmentSize;
