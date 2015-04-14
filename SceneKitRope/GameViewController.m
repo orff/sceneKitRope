@@ -100,7 +100,7 @@
     SCNNode *branch = [SCNNode nodeWithGeometry:[SCNCylinder cylinderWithRadius:0.3 height:handleHeight]];
     branch.name = @"branch";
     branch.geometry.firstMaterial.diffuse.contents = [SKColor redColor];
-    branch.physicsBody = [SCNPhysicsBody kinematicBody];
+    branch.physicsBody = [SCNPhysicsBody staticBody];
     //branch.eulerAngles = SCNVector3Make(0, 0, M_PI_2);
     
     branch.position = SCNVector3Make(0, 4.0, 0);
