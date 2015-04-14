@@ -127,7 +127,7 @@
     //params used
     _rope.ringsDistance = 0.025;
     _rope.ringFriction = 0.5;
-    _rope.ringMass = 100.0;
+    _rope.ringMass = 5.0;
     
     _rope.startRingPosition = SCNVector3Make(branch.position.x, branch.position.y - handleHeight/2 - ringSegmentSize.y/2, branch.position.z);
     [_rope buildRopeWithScene:scene];
