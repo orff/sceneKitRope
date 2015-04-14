@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>591EAA88-7638-4C51-B907-6816666CA639</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SceneKitRope</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>57AF9682C30D061F30B81C856FBBC05016490FB1</key>
+		<string>https://github.com/orff/sceneKitRope.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SceneKitRope.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>57AF9682C30D061F30B81C856FBBC05016490FB1</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/orff/sceneKitRope.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>57AF9682C30D061F30B81C856FBBC05016490FB1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>57AF9682C30D061F30B81C856FBBC05016490FB1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SceneKitRope</string>
+		</dict>
+	</array>
+</dict>
+</plist>
