@@ -108,9 +108,11 @@
     
     //create the rope
     SCNMaterial *ropeMaterial = [SCNMaterial material];
-    ropeMaterial.diffuse.contents = [SKColor darkGrayColor];
+    ropeMaterial.diffuse.contents = [SKColor grayColor];
     ropeMaterial.reflective.contents = @"chrome.jpg";
     ropeMaterial.reflective.intensity = 0.65;
+    ropeMaterial.specular.contents = [SKColor colorWithWhite:0.9 alpha:1.0];
+    ropeMaterial.shininess = 1.0;
     _rope = [[MHRope alloc] initWithMaterial:ropeMaterial andRingSegmentSize:ringSegmentSize];
     
     //
@@ -125,6 +127,7 @@
     //params used
     _rope.ringsDistance = 0.025;
     _rope.ringFriction = 0.5;
+    _rope.ringMass = 100.0;
     
     _rope.startRingPosition = SCNVector3Make(branch.position.x, branch.position.y - handleHeight/2 - ringSegmentSize.y/2, branch.position.z);
     [_rope buildRopeWithScene:scene];
