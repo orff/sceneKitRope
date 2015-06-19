@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "MHRope.h"
+#import "MHSceneRendererDelegate.h"
 
 @implementation GameViewController {
     __weak SCNNode *_branch;
@@ -15,6 +16,8 @@
     BOOL _branchIsMoving;
     
     MHRope *_rope;
+    
+    MHSceneRendererDelegate *_rendererDelegate;
 }
 
 - (void)viewDidLoad
@@ -147,6 +150,10 @@
     scnView.scene = scene;
     
     scnView.scene.physicsWorld.speed = 2.5;
+    
+    //assigning a renderer delegate to run the elastic effect workaround each frame
+    _rendererDelegate = [[MHSceneRendererDelegate alloc] initWithRope:_rope];
+    scnView.delegate = _rendererDelegate;
     
     // allows the user to manipulate the camera
     //scnView.allowsCameraControl = YES;

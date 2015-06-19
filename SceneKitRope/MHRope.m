@@ -91,6 +91,11 @@ static CGFloat const RING_MASS_DEFAULT = -1;
     }
 }
 
+-(void)adjustRingsPositions
+{
+    //todo workaround goes here
+}
+
 -(SCNNode *)startRing
 {
     return _ropeRings[0];

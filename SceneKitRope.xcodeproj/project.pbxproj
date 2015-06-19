@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A655F70B1B3468D7002CC743 /* MHRope.m in Sources */ = {isa = PBXBuildFile; fileRef = A655F70A1B3468D7002CC743 /* MHRope.m */; };
+		A655F70F1B346C3B002CC743 /* MHSceneRendererDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A655F70E1B346C3B002CC743 /* MHSceneRendererDelegate.m */; };
 		BA8BC0381ADB12600050E1E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8BC0371ADB12600050E1E5 /* main.m */; };
 		BA8BC03B1ADB12600050E1E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8BC03A1ADB12600050E1E5 /* AppDelegate.m */; };
 		BA8BC03D1ADB12610050E1E5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8BC03C1ADB12610050E1E5 /* art.scnassets */; };
@@ -15,7 +17,6 @@
 		BA8BC0451ADB12610050E1E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8BC0441ADB12610050E1E5 /* Images.xcassets */; };
 		BA8BC0481ADB12610050E1E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BC0461ADB12610050E1E5 /* LaunchScreen.xib */; };
 		BA8BC0541ADB12610050E1E5 /* SceneKitRopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8BC0531ADB12610050E1E5 /* SceneKitRopeTests.m */; };
-		BADF91431ADCB21300AC06A4 /* MHRope.m in Sources */ = {isa = PBXBuildFile; fileRef = BADF91421ADCB21300AC06A4 /* MHRope.m */; };
 		BADF91451ADCB22C00AC06A4 /* chrome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BADF91441ADCB22C00AC06A4 /* chrome.jpg */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A655F7091B3468D7002CC743 /* MHRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHRope.h; sourceTree = "<group>"; };
+		A655F70A1B3468D7002CC743 /* MHRope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHRope.m; sourceTree = "<group>"; };
+		A655F70D1B346C3B002CC743 /* MHSceneRendererDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSceneRendererDelegate.h; sourceTree = "<group>"; };
+		A655F70E1B346C3B002CC743 /* MHSceneRendererDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSceneRendererDelegate.m; sourceTree = "<group>"; };
 		BA8BC0321ADB12600050E1E5 /* SceneKitRope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitRope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8BC0361ADB12600050E1E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA8BC0371ADB12600050E1E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,8 +49,6 @@
 		BA8BC04D1ADB12610050E1E5 /* SceneKitRopeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKitRopeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8BC0521ADB12610050E1E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA8BC0531ADB12610050E1E5 /* SceneKitRopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneKitRopeTests.m; sourceTree = "<group>"; };
-		BADF91411ADCB21300AC06A4 /* MHRope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHRope.h; path = ../../SceneKitRopeOld/SceneKitRope/SceneKitRope/MHRope.h; sourceTree = "<group>"; };
-		BADF91421ADCB21300AC06A4 /* MHRope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHRope.m; path = ../../SceneKitRopeOld/SceneKitRope/SceneKitRope/MHRope.m; sourceTree = "<group>"; };
 		BADF91441ADCB22C00AC06A4 /* chrome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chrome.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,9 +91,9 @@
 		BA8BC0341ADB12600050E1E5 /* SceneKitRope */ = {
 			isa = PBXGroup;
 			children = (
+				A655F7091B3468D7002CC743 /* MHRope.h */,
+				A655F70A1B3468D7002CC743 /* MHRope.m */,
 				BADF91441ADCB22C00AC06A4 /* chrome.jpg */,
-				BADF91411ADCB21300AC06A4 /* MHRope.h */,
-				BADF91421ADCB21300AC06A4 /* MHRope.m */,
 				BA8BC0391ADB12600050E1E5 /* AppDelegate.h */,
 				BA8BC03A1ADB12600050E1E5 /* AppDelegate.m */,
 				BA8BC03C1ADB12610050E1E5 /* art.scnassets */,
@@ -100,6 +103,8 @@
 				BA8BC0441ADB12610050E1E5 /* Images.xcassets */,
 				BA8BC0461ADB12610050E1E5 /* LaunchScreen.xib */,
 				BA8BC0351ADB12600050E1E5 /* Supporting Files */,
+				A655F70D1B346C3B002CC743 /* MHSceneRendererDelegate.h */,
+				A655F70E1B346C3B002CC743 /* MHSceneRendererDelegate.m */,
 			);
 			path = SceneKitRope;
 			sourceTree = "<group>";
@@ -232,9 +237,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A655F70F1B346C3B002CC743 /* MHSceneRendererDelegate.m in Sources */,
 				BA8BC03B1ADB12600050E1E5 /* AppDelegate.m in Sources */,
 				BA8BC0401ADB12610050E1E5 /* GameViewController.m in Sources */,
-				BADF91431ADCB21300AC06A4 /* MHRope.m in Sources */,
+				A655F70B1B3468D7002CC743 /* MHRope.m in Sources */,
 				BA8BC0381ADB12600050E1E5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
