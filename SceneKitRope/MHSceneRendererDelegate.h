@@ -12,6 +12,6 @@
 
 @interface MHSceneRendererDelegate: NSObject<SCNSceneRendererDelegate>
 
--(instancetype)initWithRope:(MHRope *)rope;
+-(instancetype)initWithRope:(MHRope *)rope branch:(SCNNode *)branch;
 
 @end

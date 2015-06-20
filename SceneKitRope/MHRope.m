@@ -64,7 +64,6 @@ static CGFloat const RING_MASS_DEFAULT = -1;
     SCNBox *box = [SCNBox boxWithWidth:_ringSegmentSize.x height:_ringSegmentSize.y length:_ringSegmentSize.z chamferRadius:0.1];
     SCNNode *ring = [SCNNode nodeWithGeometry:box];
     ring.geometry.firstMaterial = _ringTexture;
-    
     ring.position = position;
     ring.physicsBody = [SCNPhysicsBody dynamicBody];
     ring.physicsBody.friction = _ringFriction;
@@ -91,9 +90,28 @@ static CGFloat const RING_MASS_DEFAULT = -1;
     }
 }
 
--(void)adjustRingsPositions
+-(void)adjustRingsPositionsWithStartContactPoint:(SCNVector3)startContactPoint
 {
-    //todo workaround goes here
+//    SCNNode *ring1 = _ropeRings[0],
+//    *ring2;
+//    ring1.position = [self computeContactPointWithEulerRotations:ring1.eulerAngles boxPosition:startContactPoint];
+//    
+//    for(int i = 1; i < _ropeRings.count; i++) {
+//        ring1 = _ropeRings[i - 1];
+//        ring2 = _ropeRings[i];
+//        SCNVector3 contactPoint = [self computeContactPointWithEulerRotations:ring1.eulerAngles boxPosition:ring1.position];
+//        ring2.position = [self computeContactPointWithEulerRotations:ring2.eulerAngles boxPosition:contactPoint];
+//    }
+}
+
+
+-(SCNVector3)computeContactPointWithEulerRotations:(SCNVector3)r boxPosition:(SCNVector3)p
+{
+    CGFloat h2 = (_ringSegmentSize.y + _ringsDistance) / 2,
+    x = p.x + h2 * (cosf(r.x) * sinf(r.z) + sinf(r.x) * sinf(r.y) * cosf(r.z)),
+    y = p.y - h2 * (cosf(r.x) * cosf(r.z) - sinf(r.x) * sinf(r.y) * sinf(r.z)),
+    z = p.z - h2 * sinf(r.x) * cosf(r.y);
+    return SCNVector3Make(x, y, z);
 }
 
 -(SCNNode *)startRing

@@ -32,7 +32,7 @@
 
 -(void)buildRopeWithScene:(SCNScene *)scene;
 
--(void)adjustRingsPositions;
+-(void)adjustRingsPositionsWithStartContactPoint:(SCNVector3)startContactPoint;
 
 -(SCNNode *)startRing;
 

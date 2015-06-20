@@ -106,7 +106,7 @@
     branch.physicsBody = [SCNPhysicsBody staticBody];
     //branch.eulerAngles = SCNVector3Make(0, 0, M_PI_2);
     
-    branch.position = SCNVector3Make(0, 4.0, 0);
+    branch.position = SCNVector3Make(0, 5.0, 0);
     [[scene rootNode] addChildNode:branch];
     
     //create the rope
@@ -152,7 +152,7 @@
     scnView.scene.physicsWorld.speed = 2.5;
     
     //assigning a renderer delegate to run the elastic effect workaround each frame
-    _rendererDelegate = [[MHSceneRendererDelegate alloc] initWithRope:_rope];
+    _rendererDelegate = [[MHSceneRendererDelegate alloc] initWithRope:_rope branch:branch];
     scnView.delegate = _rendererDelegate;
     
     // allows the user to manipulate the camera
@@ -175,7 +175,6 @@
     
     [gestureRecognizers addObjectsFromArray:scnView.gestureRecognizers];
     scnView.gestureRecognizers = gestureRecognizers;
-    
 }
 
 -(SCNHitTestResult *)dragPlaneResult:(NSArray *)hitResults {
