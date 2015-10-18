@@ -19,6 +19,8 @@
 
 @property(nonatomic) CGFloat ringsDistance;
 
+@property(nonatomic) CGFloat ringsClampLimitDistance;
+
 @property(nonatomic) SCNVector3 startRingPosition;
 
 @property(nonatomic) CGFloat ringFriction;
@@ -32,7 +34,7 @@
 
 -(void)buildRopeWithScene:(SCNScene *)scene;
 
--(void)adjustRingsPositionsWithStartContactPoint:(SCNVector3)startContactPoint;
+-(void)clampRingPositions;
 
 -(SCNNode *)startRing;
 

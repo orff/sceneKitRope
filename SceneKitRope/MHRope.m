@@ -34,6 +34,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
         _startRingPosition = SCNVector3Zero;
         _ringSegmentSize = ringSegmentSize;
         _ringsDistance = RINGS_DISTANCE_DEFAULT;
+        _ringsClampLimitDistance = ringSegmentSize.y*2;
         _ringCount = RING_COUNT_DEFAULT;
         
         _ringFriction = RING_FRICTION_DEFAULT;
@@ -90,28 +91,24 @@ static CGFloat const RING_MASS_DEFAULT = -1;
     }
 }
 
--(void)adjustRingsPositionsWithStartContactPoint:(SCNVector3)startContactPoint
+-(void)clampRingPositions
 {
-    SCNNode *ring1 = _ropeRings[0],
-    *ring2;
-    ring1.position = [self computeContactPointWithEulerRotations:[ring1 presentationNode].eulerAngles boxPosition:startContactPoint];
-    
     for(int i = 1; i < _ropeRings.count; i++) {
-        ring1 = (SCNNode *)_ropeRings[i - 1];
-        ring2 = _ropeRings[i];
-        SCNVector3 contactPoint = [self computeContactPointWithEulerRotations:[ring1 presentationNode].eulerAngles boxPosition:ring1.position];
-        ring2.position = [self computeContactPointWithEulerRotations:[ring2 presentationNode].eulerAngles boxPosition:contactPoint];
+        SCNNode *ring1 = (SCNNode *)_ropeRings[i - 1];
+        SCNNode *ring2 = (SCNNode *)_ropeRings[i];
+        
+        SCNVector3 origPos = [ring1 presentationNode].position;
+        SCNVector3 newPos = [ring2 presentationNode].position;
+        
+        float dist = sqrt((newPos.x - origPos.x) * (newPos.x - origPos.x) + (newPos.y - origPos.y) * (newPos.y - origPos.y) +(newPos.z - origPos.z) * (newPos.z - origPos.z)); //fastest
+        
+        SCNVector3 midPt = SCNVector3Make(
+                                          (newPos.x + origPos.x)/2,
+                                          (newPos.y + origPos.y)/2,
+                                          (newPos.z + origPos.z)/2);
+        
+        if (dist>_ringsClampLimitDistance) ring2.position = midPt;
     }
-}
-
-
--(SCNVector3)computeContactPointWithEulerRotations:(SCNVector3)r boxPosition:(SCNVector3)p
-{
-    CGFloat h2 = (_ringSegmentSize.y + _ringsDistance) / 2,
-    x = p.x + h2 * (cosf(r.x) * sinf(r.z) + sinf(r.x) * sinf(r.y) * cosf(r.z)),
-    y = p.y - h2 * (cosf(r.x) * cosf(r.z) - sinf(r.x) * sinf(r.y) * sinf(r.z)),
-    z = p.z + h2 * sinf(r.x) * cosf(r.y);
-    return SCNVector3Make(x, y, z);
 }
 
 -(SCNNode *)startRing
