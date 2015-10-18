@@ -22,7 +22,7 @@ static int const RING_COUNT_DEFAULT = 20;
 
 static CGFloat const RING_FRICTION_DEFAULT = 0;
 static CGFloat const RING_RESTITUTION_DEFAULT = 0;
-static CGFloat const RING_MASS_DEFAULT = -1;
+static CGFloat const RING_MASS_DEFAULT = 20.0;
 
 
 -(instancetype)initWithMaterial:(SCNMaterial *)ringTexture andRingSegmentSize:(SCNVector3)ringSegmentSize
@@ -100,7 +100,15 @@ static CGFloat const RING_MASS_DEFAULT = -1;
         ring1 = (SCNNode *)_ropeRings[i - 1];
         ring2 = _ropeRings[i];
         SCNVector3 contactPoint = [self computeContactPointWithEulerRotations:[ring1 presentationNode].eulerAngles boxPosition:ring1.position];
-        ring2.position = [self computeContactPointWithEulerRotations:[ring2 presentationNode].eulerAngles boxPosition:contactPoint];
+        
+        SCNVector3 newPos = [self computeContactPointWithEulerRotations:[ring2 presentationNode].eulerAngles boxPosition:contactPoint];
+        
+        SCNVector3 midPt = SCNVector3Make(
+            (newPos.x + [ring2 presentationNode].position.x)/2,
+            (newPos.y + [ring2 presentationNode].position.y)/2,
+            (newPos.z + [ring2 presentationNode].position.z)/2);
+
+        ring2.position = midPt;
     }
 }
 
