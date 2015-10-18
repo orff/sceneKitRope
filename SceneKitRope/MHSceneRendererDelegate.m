@@ -31,9 +31,7 @@
 
 -(void)renderer:(id<SCNSceneRenderer>)aRenderer didSimulatePhysicsAtTime:(NSTimeInterval)time
 {
-    SCNBox *brBox = (SCNBox *)_branch.geometry;
-    SCNVector3 startContatPoint = SCNVector3Make(_branch.position.x, _branch.position.y - brBox.height/ 2, _branch.position.z);
-    [_rope adjustRingsPositionsWithStartContactPoint:startContatPoint];
+    [_rope clampRingPositions];
 }
 
 -(void)renderer:(id<SCNSceneRenderer>)aRenderer updateAtTime:(NSTimeInterval)time

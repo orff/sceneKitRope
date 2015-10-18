@@ -34,6 +34,7 @@ static CGFloat const RING_MASS_DEFAULT = 20.0;
         _startRingPosition = SCNVector3Zero;
         _ringSegmentSize = ringSegmentSize;
         _ringsDistance = RINGS_DISTANCE_DEFAULT;
+        _ringsClampLimitDistance = ringSegmentSize.y*2;
         _ringCount = RING_COUNT_DEFAULT;
         
         _ringFriction = RING_FRICTION_DEFAULT;
@@ -106,7 +107,7 @@ static CGFloat const RING_MASS_DEFAULT = 20.0;
                                           (newPos.y + origPos.y)/2,
                                           (newPos.z + origPos.z)/2);
         
-        if (dist>1.0) ring2.position = midPt;
+        if (dist>_ringsClampLimitDistance) ring2.position = midPt;
     }
 }
 
