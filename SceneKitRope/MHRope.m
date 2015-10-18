@@ -92,16 +92,16 @@ static CGFloat const RING_MASS_DEFAULT = -1;
 
 -(void)adjustRingsPositionsWithStartContactPoint:(SCNVector3)startContactPoint
 {
-//    SCNNode *ring1 = _ropeRings[0],
-//    *ring2;
-//    ring1.position = [self computeContactPointWithEulerRotations:ring1.eulerAngles boxPosition:startContactPoint];
-//    
-//    for(int i = 1; i < _ropeRings.count; i++) {
-//        ring1 = _ropeRings[i - 1];
-//        ring2 = _ropeRings[i];
-//        SCNVector3 contactPoint = [self computeContactPointWithEulerRotations:ring1.eulerAngles boxPosition:ring1.position];
-//        ring2.position = [self computeContactPointWithEulerRotations:ring2.eulerAngles boxPosition:contactPoint];
-//    }
+    SCNNode *ring1 = _ropeRings[0],
+    *ring2;
+    ring1.position = [self computeContactPointWithEulerRotations:[ring1 presentationNode].eulerAngles boxPosition:startContactPoint];
+    
+    for(int i = 1; i < _ropeRings.count; i++) {
+        ring1 = (SCNNode *)_ropeRings[i - 1];
+        ring2 = _ropeRings[i];
+        SCNVector3 contactPoint = [self computeContactPointWithEulerRotations:[ring1 presentationNode].eulerAngles boxPosition:ring1.position];
+        ring2.position = [self computeContactPointWithEulerRotations:[ring2 presentationNode].eulerAngles boxPosition:contactPoint];
+    }
 }
 
 
@@ -110,7 +110,7 @@ static CGFloat const RING_MASS_DEFAULT = -1;
     CGFloat h2 = (_ringSegmentSize.y + _ringsDistance) / 2,
     x = p.x + h2 * (cosf(r.x) * sinf(r.z) + sinf(r.x) * sinf(r.y) * cosf(r.z)),
     y = p.y - h2 * (cosf(r.x) * cosf(r.z) - sinf(r.x) * sinf(r.y) * sinf(r.z)),
-    z = p.z - h2 * sinf(r.x) * cosf(r.y);
+    z = p.z + h2 * sinf(r.x) * cosf(r.y);
     return SCNVector3Make(x, y, z);
 }
 
